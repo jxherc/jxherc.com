@@ -22,12 +22,12 @@
       i'm a student interested in computer science and designing.
       <span class="location">based in <s>shenzhen</s><span class="here">toronto</span>.</span>
     </div>
-    <div class="portrait">
+    <a class="portrait" href="intro.html" aria-label="read more about me">
       <div class="fallback">—</div>
       <img src="images/me.jpg" alt=""
            onload="this.classList.add('loaded'); this.previousElementSibling.style.display='none';"
            onerror="this.style.display='none';" />
-    </div>
+    </a>
   </section>
 
   <section>
@@ -39,10 +39,15 @@
   </section>
 
   <section>
-    <a class="music-teaser" href="music.html">
-      <span class="label" style="margin:0">music</span>
-      <span class="sub">recent, artists, albums</span>
-      <span class="arrow">→</span>
+    <a class="music-card" href="music.html">
+      <div class="row">
+        <span class="title">music</span>
+        <span class="enter">enter →</span>
+      </div>
+      <div class="now-playing" id="np">
+        <span class="pulse"></span>
+        <span id="np-text" style="opacity:0.6">hover to peek</span>
+      </div>
     </a>
   </section>
 
@@ -63,7 +68,7 @@
     <div class="label">elsewhere</div>
     <div class="kv-list">
       <a class="kv-row" href="https://jxherc.com/gbp" target="_blank" rel="noopener">
-        <span class="k">discord</span><span class="v">gbp</span><span class="arrow">↗</span>
+        <span class="k">discord</span><span class="v">server</span><span class="arrow">↗</span>
       </a>
       <a class="kv-row" href="https://instagram.com/aqfinity" target="_blank" rel="noopener">
         <span class="k">instagram</span><span class="v">@aqfinity</span><span class="arrow">↗</span>
@@ -95,6 +100,24 @@
   }
   updateAge();
   setInterval(updateAge, 40);
+
+  // Peek at most recent track for music card
+  (async function peekRecent() {
+    try {
+      const res = await fetch('https://api.stats.fm/api/v1/users/jxherc/streams/recent?limit=1');
+      if (!res.ok) return;
+      const data = await res.json();
+      const items = Array.isArray(data.items) ? data.items : (Array.isArray(data) ? data : []);
+      const item = items[0];
+      if (!item) return;
+      const track  = item.track?.name || item.name;
+      const artist = item.track?.artists?.[0]?.name || item.artists?.[0]?.name;
+      if (!track) return;
+      const npText = document.getElementById('np-text');
+      npText.style.opacity = '1';
+      npText.innerHTML = `last played <span class="track-name">${track}</span>${artist ? `<span class="track-sep">—</span><span>${artist}</span>` : ''}`;
+    } catch (e) {}
+  })();
 </script>
 </body>
 </html>

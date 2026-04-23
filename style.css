@@ -143,7 +143,10 @@ main {
   background: #161616;
   overflow: hidden;
   position: relative;
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
+a.portrait:hover { transform: translateY(-2px); }
 .portrait img {
   width: 100%;
   height: 100%;
@@ -162,33 +165,71 @@ main {
   color: var(--faint);
 }
 
-/* Music teaser — single link styled like section header */
-.music-teaser {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  color: var(--text);
+/* Music teaser — creative card treatment */
+.music-card {
+  display: block;
   text-decoration: none;
-  font-size: 0.875rem;
-  width: fit-content;
-  transition: opacity 0.2s ease;
+  color: var(--text);
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--faint);
+  border-radius: 3px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
-.music-teaser:hover { opacity: 0.7; }
-.music-teaser .arrow {
-  color: var(--faint);
-  font-size: 0.72rem;
-  transition: transform 0.25s ease, color 0.25s ease;
+.music-card:hover {
+  border-color: var(--muted);
+  background: #0e0e0e;
 }
-.music-teaser:hover .arrow {
-  transform: translateX(4px);
+.music-card .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.music-card .title {
+  font-size: 0.95rem;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.music-card .enter {
+  font-size: 0.7rem;
   color: var(--muted);
-}
-.music-teaser .sub {
-  color: var(--muted);
-  font-size: 0.72rem;
   letter-spacing: 0.04em;
-  margin-left: 0.4rem;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
+.music-card:hover .enter {
+  color: var(--text);
+  transform: translateX(3px);
+}
+.music-card .now-playing {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.65rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  min-height: 1.1em;
+  line-height: 1.4;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.music-card .pulse {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--muted);
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+.music-card:hover .pulse { background: var(--text); }
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+.music-card .track-name { color: var(--text); }
+.music-card .track-sep { color: var(--faint); margin: 0 0.4em; }
 
 /* Key/value rows (about + elsewhere + recent-tracks-lite) */
 .kv-list {
@@ -383,6 +424,47 @@ a.kv-row:hover .arrow { transform: translate(3px, -3px); color: var(--muted); }
   color: var(--muted);
   font-style: italic;
   line-height: 1.55;
+}
+
+/* Intro page — longform writing */
+.prose {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text);
+  letter-spacing: -0.005em;
+  max-width: 48ch;
+}
+.prose p { margin-bottom: 1.1rem; }
+.prose p:last-child { margin-bottom: 0; }
+.prose em {
+  color: var(--muted);
+  font-style: italic;
+}
+.portrait-large {
+  width: 100%;
+  max-width: 180px;
+  aspect-ratio: 1 / 1;
+  border-radius: 2px;
+  background: #161616;
+  overflow: hidden;
+  position: relative;
+}
+.portrait-large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.portrait-large img.loaded { opacity: 1; }
+.portrait-large .fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: var(--faint);
 }
 
 /* Section gap override for music page (tighter internal spacing) */
