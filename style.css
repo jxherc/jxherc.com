@@ -178,6 +178,7 @@ a.portrait:hover img {
   filter: brightness(0.7);
   transform: scale(1.04);
 }
+
 .portrait img {
   width: 100%;
   height: 100%;
@@ -284,6 +285,7 @@ a.kv-row:hover .arrow { transform: translate(3px, -3px); color: var(--muted); }
   padding: 0.15rem 0;
   letter-spacing: -0.005em;
   line-height: 1.5;
+  white-space: nowrap;
 }
 .two-col a {
   position: relative;
@@ -440,6 +442,7 @@ a.kv-row:hover .arrow { transform: translate(3px, -3px); color: var(--muted); }
   color: var(--muted);
   font-style: italic;
 }
+
 .portrait-large {
   width: 140px;
   height: 140px;
