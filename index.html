@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 <main>
@@ -33,6 +34,7 @@
   <section>
     <div class="label">about</div>
     <div class="kv-list">
+      <div class="kv-row"><span class="k">time</span><span class="v" id="clock">—</span></div>
       <div class="kv-row"><span class="k">age</span><span class="v" id="age">—</span></div>
       <div class="kv-row"><span class="k">languages</span><span class="v">english &nbsp;·&nbsp; mandarin</span></div>
     </div>
@@ -64,11 +66,11 @@
       <a class="kv-row" href="https://jxherc.com/gbp" target="_blank" rel="noopener">
         <span class="k">discord</span><span class="v">server</span><span class="arrow">↗</span>
       </a>
-      <a class="kv-row" href="https://instagram.com/houjingxing" target="_blank" rel="noopener">
-        <span class="k">instagram</span><span class="v">@houjingxing</span><span class="arrow">↗</span>
+      <a class="kv-row" href="https://instagram.com/aqfinity" target="_blank" rel="noopener">
+        <span class="k">instagram</span><span class="v">@aqfinity</span><span class="arrow">↗</span>
       </a>
-      <a class="kv-row" href="https://twitter.com/jxherc" target="_blank" rel="noopener">
-        <span class="k">twitter</span><span class="v">@jxherc</span><span class="arrow">↗</span>
+      <a class="kv-row" href="https://twitter.com/cvawkd" target="_blank" rel="noopener">
+        <span class="k">twitter</span><span class="v">@cvawkd</span><span class="arrow">↗</span>
       </a>
       <a class="kv-row" href="https://youtube.com/@jxherc" target="_blank" rel="noopener">
         <span class="k">youtube</span><span class="v">@jxherc</span><span class="arrow">↗</span>
@@ -94,6 +96,22 @@
   }
   updateAge();
   setInterval(updateAge, 40);
+
+  // Live Toronto time
+  const clockEl = document.getElementById('clock');
+  function updateClock() {
+    const time = new Date().toLocaleTimeString('en-CA', {
+      timeZone: 'America/Toronto',
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    clockEl.textContent = time + ' toronto';
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
 </script>
+
 </body>
 </html>
